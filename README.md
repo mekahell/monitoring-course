@@ -8,6 +8,9 @@ Découverte du format des messages Syslog avec Fluentd et l'utilitaire logger.
 
 ## 02 - HexaTek - [Collecte des métriques avec Prometheus et Mimir](./hexatek/02-prometheus-mimir/)
 
+Dans ce module, nous allons installer [Prometheus](https://prometheus.io/) pour la collecte des métriques d'un service de Hexatek. 
+En supplément, on installera [Grafana Mimir](https://grafana.com/oss/mimir/) pour le stockage long terme sur S3 de ces données.
+
 ## 03 - HexaTek - [Collecte des logs avec Fluentd et OpenSearch](./hexatek/03-fluentd-opensearch/)
 
 ## 04 - HexaTek - [Collecte des traces applicatives avec Zipkin](./hexatek/04-zipkin/)
