@@ -1,0 +1,56 @@
+services:
+  hexatek-service:
+    image: julius/prometheus-demo-service
+    hostname: hexatek-service
+    ports:
+      - 127.0.0.1:8080:8080
+
+  prometheus:
+    image: prom/prometheus:latest
+    hostname: prometheus
+    ports:
+      - 127.0.0.1:9090:9090
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --log.level=error
+      - --storage.tsdb.path=/prometheus
+      - --web.console.libraries=/usr/share/prometheus/console_libraries
+      - --web.console.templates=/usr/share/prometheus/consoles
+    volumes:
+      - ./config/prometheus.yaml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - "mimir"
+
+  minio:
+    image: minio/minio
+    entrypoint: [""]
+    hostname: minio
+    command:
+      [
+        "sh",
+        "-c",
+        'mkdir -p /data/mimir && minio server --quiet /data --console-address ":9001"',
+      ]
+    ports:
+      - 127.0.0.1:9001:9001
+    env_file:
+      - .env.local
+    volumes:
+      - minio-data:/data
+
+  mimir:
+    image: grafana/mimir-distroless:latest
+    command: ["-config.file=/etc/mimir.yaml", "-config.expand-env=true"]
+    hostname: mimir
+    depends_on:
+      - minio
+    env_file:
+      - .env.local
+    volumes:
+      - ./config/mimir.yaml:/etc/mimir.yaml
+      - ./config/alertmanager-fallback-config.yaml:/etc/alertmanager-fallback-config.yaml
+      - mimir-data:/data
+
+volumes:
+  mimir-data:
+  minio-data:

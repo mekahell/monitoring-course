@@ -1,0 +1,28 @@
+global:
+  scrape_interval: 5s
+  external_labels:
+    cluster: hexatek
+    namespace: hexatek
+
+rule_files:
+  - /etc/prometheus/rules.yaml
+
+scrape_configs:
+  - job_name: hexatek/mimir
+    static_configs:
+      - targets: ["mimir:8080"]
+        labels:
+          pod: "mimir"
+  - job_name: hexatek/service
+    static_configs:
+      - targets:
+          - "hexatek-service:8080"
+        labels:
+          pod: "service"
+
+remote_write:
+  - url: http://mimir:9009/api/v1/push
+    # Add X-Scope-OrgID header so that Mimir knows what tenant the remote write data should be stored in.
+    # In this case, our tenant is "hexatek"
+    headers:
+      X-Scope-OrgID: hexatek

@@ -6,12 +6,12 @@ Support de travaux pratiques pour le cours de supervision.
 
 Découverte du format des messages Syslog avec Fluentd et l'utilitaire logger.
 
-## 02 - HexaTek - [Collecte des métriques avec Prometheus et Mimir](./02-prometheus-mimir/)
+## 02 - HexaTek - [Collecte des métriques avec Prometheus et Mimir](./hexatek/02-prometheus-mimir/)
 
-## 03 - HexaTek - [Collecte des logs avec Fluentd et OpenSearch](./03-fluentd-opensearch/)
+## 03 - HexaTek - [Collecte des logs avec Fluentd et OpenSearch](./hexatek/03-fluentd-opensearch/)
 
-## 04 - HexaTek - [Collecte des traces applicatives avec Zipkin](./04-zipkin/)
+## 04 - HexaTek - [Collecte des traces applicatives avec Zipkin](./hexatek/04-zipkin/)
 
-## 05 - HexaTek - [Reporting avec Grafana](./05-grafana/)
+## 05 - HexaTek - [Reporting avec Grafana](./hexatek/05-grafana/)
 
-## 06 - HexaTek - [Envoi d'alertes avec AlertManager](./06-alertmanager/)
+## 06 - HexaTek - [Envoi d'alertes avec AlertManager](./hexatek/06-alertmanager/)
