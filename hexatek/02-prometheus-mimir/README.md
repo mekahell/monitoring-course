@@ -10,6 +10,7 @@ Pour le stockage S3 pour Mimir, nous allons utiliser [Minio](https://min.io/).
 
 [Un service de simulation d'écriture de métriques](https://github.com/juliusv/prometheus_demo_service) est démarré parallèlement.
 
+![Schema](./schema-prometheus-mimir.png "Schema Prometheus")
 
 ## Pré-requis
 
