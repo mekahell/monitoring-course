@@ -1,0 +1,21 @@
+services:
+  grafana:
+    image: grafana/grafana-oss
+    container_name: grafana
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    networks:
+      - hexatek
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - grafana-conf:/etc/grafana
+
+networks:
+  hexatek:
+    name: 02-prometheus-mimir_default
+    external: true
+
+volumes:
+  grafana-data:
+  grafana-conf:
