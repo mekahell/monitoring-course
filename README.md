@@ -13,6 +13,9 @@ En supplément, on installera [Grafana Mimir](https://grafana.com/oss/mimir/) po
 
 ## 03 - HexaTek - [Reporting avec Grafana](./hexatek/03-grafana/)
 
+Ici nous allons créer un dashboard afin de consulter l'état de l'architecture Hexatek. 
+Les données utilisées seront celles de notre précédente activité.
+
 ## 04 - HexaTek - [Envoi d'alertes avec AlertManager](./hexatek/04-alertmanager/)
 
 ## 05 - HexaTek - [Collecte des logs avec Fluentd et OpenSearch](./hexatek/05-fluentd-opensearch/)
