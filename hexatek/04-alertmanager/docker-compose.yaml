@@ -1,6 +1,7 @@
 services:
   alertmanager:
     image: prom/alertmanager
+    hostname: alertmanager
     container_name: alertmanager
     restart: unless-stopped
     networks:
@@ -8,9 +9,10 @@ services:
     ports:
       - "9093:9093"
     volumes:
-      - "./config:/config"
+      - "./config/alertmanager.yml:/config/alertmanager.yml"
+      - "./config/discord_webhook.txt:/config/discord_webhook.txt"
       - alertmanager-data:/data
-    command: --config.file=/config/alertmanager.yml --log.level=debug
+    command: --config.file=/config/alertmanager.yml
 
 networks:
   hexatek:

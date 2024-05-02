@@ -1,2 +1,3 @@
 .vscode
 **/.env.local
+hexatek/04-alertmanager/config/discord_webhook.txt

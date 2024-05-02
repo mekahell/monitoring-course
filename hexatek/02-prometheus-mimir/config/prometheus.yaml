@@ -6,11 +6,11 @@ global:
 
 rule_files:
   - /etc/prometheus/rules.yaml
+  - /etc/prometheus/alerts.yaml
 
 alerting:
   alertmanagers:
-    - scheme: http
-      static_configs:
+    - static_configs:
         - targets: [ 'alertmanager:9093' ]
 
 scrape_configs:
