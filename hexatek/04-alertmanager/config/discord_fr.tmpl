@@ -1,0 +1,18 @@
+{{ define "__text_alert_list_fr" }}{{ range . }}Les Labels de l'alarme sont:
+{{ range .Labels.SortedPairs }} - {{ .Name }} = {{ .Value }}
+{{ end }}Annotations:
+{{ range .Annotations.SortedPairs }} - {{ .Name }} = {{ .Value }}
+{{ end }}Source: {{ .GeneratorURL }}
+{{ end }}{{ end }}
+
+{{ define "discord.default.fr.title" }}{{ template "__subject" . }}{{ end }}
+{{ define "discord.default.fr.message" }}
+{{ if gt (len .Alerts.Firing) 0 }}
+Alertes Déclénchées:
+{{ template "__text_alert_list_fr" .Alerts.Firing }}
+{{ end }}
+{{ if gt (len .Alerts.Resolved) 0 }}
+Alertes Résolues:
+{{ template "__text_alert_list_fr" .Alerts.Resolved }}
+{{ end }}
+{{ end }}

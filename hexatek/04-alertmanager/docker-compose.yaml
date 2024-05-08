@@ -9,8 +9,8 @@ services:
     ports:
       - "9093:9093"
     volumes:
-      - "./config/alertmanager.yml:/config/alertmanager.yml"
-      - "./config/discord_webhook.txt:/config/discord_webhook.txt"
+      - "./config:/config"
+      #- "./config/discord_webhook.txt:/config/discord_webhook.txt"
       - alertmanager-data:/data
     command: --config.file=/config/alertmanager.yml
 
