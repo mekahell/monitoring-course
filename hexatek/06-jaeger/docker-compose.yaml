@@ -1,0 +1,16 @@
+services:
+  alertmanager:
+    image: jaegertracing/all-in-one
+    hostname: jaeger
+    container_name: jaeger
+    restart: unless-stopped
+    networks:
+      - hexatek
+    ports:
+      - "16686:16686" # WebUI
+      - "4317:4317"   # OpenTelemetry gRPC
+
+networks:
+  hexatek:
+    name: 02-prometheus-mimir_default
+    external: true

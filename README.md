@@ -18,7 +18,12 @@ Les données utilisées seront celles de notre précédente activité.
 
 ## 04 - HexaTek - [Envoi d'alertes avec AlertManager](./hexatek/04-alertmanager/)
 
-## 05 - HexaTek - [Collecte des logs avec Fluentd et OpenSearch](./hexatek/05-fluentd-opensearch/)
+Nous allons définir des alertes dans Prometheus. Si elles sont déclenchées alors Alertmanager enverra une notification sur notre channel Discord.
 
-## 06 - HexaTek - [Collecte des traces applicatives avec Zipkin](./hexatek/06-zipkin/)
+## 05 - HexaTek - [Collecte des logs avec Fluentbit et OpenSearch](./hexatek/05-fluentbit-opensearch/)
 
+Nous allons mettre en oeuvre une collecte des logs par SYSLOG ou OpenTelemetry. Ces logs sont stockées dans OpenSearch. Ils pourront être consulté avec le dashboard OpenSearch.
+
+## 06 - HexaTek - [Collecte des traces applicatives avec Jaeger](./hexatek/06-jaeger/)
+
+Avec OpenTelemetry, nous récupérons des traces applicatives de notre application en JavaScript.
