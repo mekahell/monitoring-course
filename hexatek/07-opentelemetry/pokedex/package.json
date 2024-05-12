@@ -1,0 +1,17 @@
+{
+  "name": "pokedex",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build-js": "browserify ./src/app.js -o ./public/bundle.js",
+    "watch-js": "watchify ./src/app.js -o ./public/bundle.js"
+  },
+  "author": "Mickaël GREGORI",
+  "license": "ISC",
+  "description": "Pokedex de la société Hexatek",
+  "dependencies": {
+    "browserify": "^17.0.0",
+    "pokeapi-js-wrapper": "^1.2.4",
+    "watchify": "^4.0.0"
+  }
+}

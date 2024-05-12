@@ -1,7 +1,8 @@
 services:
   fluentbit:
     image: fluent/fluent-bit
-    container_name: hexatek-fluentbit-otel
+    hostname: fluentbit-otel
+    container_name: fluentbit-otel
     volumes:
       - ./config/fluent-bit:/fluent-bit/etc
     ports:

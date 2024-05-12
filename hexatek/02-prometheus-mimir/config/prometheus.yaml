@@ -25,6 +25,11 @@ scrape_configs:
           - "hexatek-service:8080"
         labels:
           pod: "service"
+  - job_name: hexatek/otel
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['otel-collector:8889']
+      - targets: ['otel-collector:8888']
 
 remote_write:
   - url: http://mimir:9009/api/v1/push
