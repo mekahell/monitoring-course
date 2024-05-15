@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build-js": "browserify ./src/app.js ./src/otel.js -o ./public/bundle.js",
-    "watch-js": "watchify ./src/app.js ./src/otel.js -o ./public/bundle.js"
+    "build-js": "browserify ./src/otel.js ./src/app.js -o ./public/bundle.js",
+    "watch-js": "watchify ./src/otel.js ./src/app.js -o ./public/bundle.js"
   },
   "author": "Mickaël GREGORI",
   "license": "ISC",

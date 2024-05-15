@@ -1,3 +1,4 @@
+const { metrics, ValueType } = require('@opentelemetry/api');
 const Pokedex = require("pokeapi-js-wrapper")
 const P = new Pokedex.Pokedex()
 
@@ -5,6 +6,18 @@ const context = {
     previousOffset: 0,
     nextOffset: 0,
 }
+
+const pokedexMeter = metrics.getMeterProvider().getMeter("pokedex-meter")
+
+const loadedPokemonCounter = pokedexMeter.createCounter("loaded-pokemon", {
+    description: "Number of loaded pokemon",
+    valueType: ValueType.INT,
+})
+
+const pageGauge = pokedexMeter.createUpDownCounter("current-offset", {
+    description: "Current offset of pagination",
+    valueType: ValueType.INT,
+})
 
 function printPokemon(pokemon) {
     console.log("Pokemon", pokemon);
@@ -82,7 +95,13 @@ function printPokemon(pokemon) {
 
 function loadPokemon(e) {
     e.preventDefault();
-    P.getPokemonByName(e.target.id).then(printPokemon)
+    P.getPokemonByName(e.target.id).then((p) => {
+        printPokemon(p);
+        // increment counter of loaded pokemon
+        loadedPokemonCounter.add(1, {
+            name: p.name,
+        });
+    })
 }
 
 function buildPokemonList(pokemons) {
@@ -100,6 +119,7 @@ function buildPokemonList(pokemons) {
 
 const loadList = function(offset) {
     P.getPokemonsList({limit : 10, offset : offset}).then(function(response) {
+        pageGauge.add(offset)
         document.getElementById("count").innerHTML = `Le pokedex contient ${response.count} pokemons (De ${offset} à ${offset + 10})`
         buildPokemonList(response.results)
         if (response.previous === null) {
@@ -134,8 +154,14 @@ function nextPage() {
     loadList(context.nextOffset)
 }
 
-document.body.onload = function(e) {
+document.addEventListener("DOMContentLoaded", (event) => {
+    console.log("loaded", event)
     loadList(0);
+});
+
+document.body.onclose = (e) => {
+    metrics.getMeterProvider().shutdown()
+        .then(() => metrics.disable());
 }
 
 document.getElementById("previous").onclick = previousPage;

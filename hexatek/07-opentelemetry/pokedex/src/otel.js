@@ -16,21 +16,59 @@ const {
 const {
   DocumentLoadInstrumentation,
 } = require("@opentelemetry/instrumentation-document-load");
-const { FetchInstrumentation } = require('@opentelemetry/instrumentation-fetch');
-const { XMLHttpRequestInstrumentation } = require('@opentelemetry/instrumentation-xml-http-request');
+const {
+  FetchInstrumentation,
+} = require("@opentelemetry/instrumentation-fetch");
+const {
+  XMLHttpRequestInstrumentation,
+} = require("@opentelemetry/instrumentation-xml-http-request");
 const { ZoneContextManager } = require("@opentelemetry/context-zone");
 const { registerInstrumentations } = require("@opentelemetry/instrumentation");
 
-const provider = new WebTracerProvider({
+const {
+  metrics,
+} = require("@opentelemetry/api");
+const {
+  MeterProvider,
+  PeriodicExportingMetricReader,
+} = require("@opentelemetry/sdk-metrics");
+
+// Optional and only needed to see the internal diagnostic logging (during development)
+//diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
+
+const otelCollectorHttpEndpoint = "http://localhost:24318";
+
+const meterProvider = new MeterProvider({
+  resource: Resource.default().merge(
+    new Resource({
+      [SEMRESATTRS_SERVICE_NAME]: "hexatek-pokedex",
+    })
+  ),
+  readers: [
+    new PeriodicExportingMetricReader({
+      exporter: new OTLPMetricExporter({
+        url: `${otelCollectorHttpEndpoint}/v1/metrics`,
+        headers: {}, // an optional object containing custom headers to be sent with each request
+        concurrencyLimit: 1, // an optional limit on pending requests
+      }),
+      exportIntervalMillis: 10000,
+    }),
+  ],
+});
+metrics.setGlobalMeterProvider(meterProvider);
+
+const tracerProvider = new WebTracerProvider({
   resource: Resource.default().merge(
     new Resource({
       [SEMRESATTRS_SERVICE_NAME]: "hexatek-pokedex",
     })
   ),
 });
-const otelCollectorHttpEndpoint = "http://localhost:24318"
-provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()));
-provider.addSpanProcessor(
+
+tracerProvider.addSpanProcessor(
+  new SimpleSpanProcessor(new ConsoleSpanExporter())
+);
+tracerProvider.addSpanProcessor(
   new SimpleSpanProcessor(
     new OTLPMetricExporter({
       url: `${otelCollectorHttpEndpoint}/v1/metrics`,
@@ -39,7 +77,7 @@ provider.addSpanProcessor(
     })
   )
 );
-provider.addSpanProcessor(
+tracerProvider.addSpanProcessor(
   new SimpleSpanProcessor(
     new OTLPTraceExporter({
       url: `${otelCollectorHttpEndpoint}/v1/traces`,
@@ -48,12 +86,16 @@ provider.addSpanProcessor(
   )
 );
 
-provider.register({
+tracerProvider.register({
   // Changing default contextManager to use ZoneContextManager - supports asynchronous operations - optional
   contextManager: new ZoneContextManager(),
 });
 
 // Registering instrumentations
 registerInstrumentations({
-  instrumentations: [new FetchInstrumentation(), new XMLHttpRequestInstrumentation(), new DocumentLoadInstrumentation()],
+  instrumentations: [
+    new FetchInstrumentation(),
+    new XMLHttpRequestInstrumentation(),
+    new DocumentLoadInstrumentation(),
+  ],
 });
