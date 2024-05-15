@@ -101,7 +101,6 @@ function buildPokemonList(pokemons) {
 const loadList = function(offset) {
     P.getPokemonsList({limit : 10, offset : offset}).then(function(response) {
         document.getElementById("count").innerHTML = `Le pokedex contient ${response.count} pokemons (De ${offset} à ${offset + 10})`
-        console.log(response)
         buildPokemonList(response.results)
         if (response.previous === null) {
             context.previousOffset = 0
@@ -123,7 +122,6 @@ const loadList = function(offset) {
                 document.getElementById("next").removeAttribute("disabled")
             }
         }
-        console.log(context)
     })
 }
 
