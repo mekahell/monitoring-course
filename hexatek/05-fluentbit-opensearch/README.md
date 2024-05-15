@@ -65,7 +65,7 @@ Ce script utilise le SDK OpenTelemetry
 
 ## Consultation des logs:
 
-- Ouvrir le dasboard de [OpenSearch](http://localhost:5601/)
+- Ouvrir le dashboard de [OpenSearch](http://localhost:5601/)
 - Sélectionner la section `Discover`
 ![Screenshot discover](./visualize.png)
 - Sélectionner votre index dans la section en haut à gauche:
