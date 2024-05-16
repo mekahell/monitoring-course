@@ -10,6 +10,11 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
       - grafana-conf:/etc/grafana
+    # Décommentez pour la récupération des logs via fluentbit
+    # logging:
+    #   driver: fluentd
+    #   options:
+    #     fluentd-address: localhost:24224
 
 networks:
   hexatek:

@@ -8,6 +8,7 @@ services:
     ports:
       - 5140:5140/udp # SYSLOG
       - 14318:4318    # OpenTelemetry
+      - 24224:24224   # Fluentd Forward
     depends_on:
       - opensearch-node1
       - opensearch-node2
@@ -62,6 +63,11 @@ services:
         hard: 65536
     volumes:
       - opensearch-data2:/usr/share/opensearch/data
+    # Décommentez pour la récupération des logs via fluentbit
+    # logging:
+    #   driver: fluentd
+    #   options:
+    #     fluentd-address: localhost:24224
     networks:
       - hexatek
 
@@ -78,6 +84,11 @@ services:
     environment:
       OPENSEARCH_HOSTS: '["http://hexatek-opensearch-node1:9200","http://hexatek-opensearch-node2:9200"]' # Define the OpenSearch nodes that OpenSearch Dashboards will query
       DISABLE_SECURITY_DASHBOARDS_PLUGIN: 'true' # disables security dashboards plugin in OpenSearch Dashboards
+    # Décommentez pour la récupération des logs via fluentbit
+    # logging:
+    #   driver: fluentd
+    #   options:
+    #     fluentd-address: localhost:24224
     networks:
       - hexatek
 
