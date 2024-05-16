@@ -4,7 +4,9 @@
   "description": "Test application for using Jaeger API",
   "main": "script.js",
   "scripts": {
-    "send-samples": "node ./script.js"
+    "send-samples-to-jaeger": "node ./script-otlp-jaeger.js",
+    "send-samples-to-zipkin": "node ./script-zipkin.js",
+    "send-samples-to-tempo": "node ./script-otlp-tempo.js"
   },
   "author": "Mickaël GREGORI",
   "license": "ISC",
