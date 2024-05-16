@@ -78,3 +78,16 @@ Ce script utilise le SDK OpenTelemetry
 - Les métriques disponibles sont documentées ici: https://docs.fluentbit.io/manual/administration/monitoring
 
 - A partir de ces métriques, créer un dashboard dans Grafana.
+
+## Collecte des logs des containers Docker de l’infrastructure:
+
+Nous allons tenter de récupérer les logs produits par les containers Docker pour les insérer dans OpenSearch.
+
+Pour cela, nous allons utiliser le driver de logs Fluentd de Docker pour forwarder les logs.
+La documentation est disponible ici: https://docs.docker.com/config/containers/logging/fluentd/
+
+Côté Fluentbit, nous allons créer une nouvelle source d’entrée de type forward, pour la collecte de logs docker.
+
+N’hésitez pas à vous aider des ressources disponibles sur le web:
+https://kevcodez.de/posts/2019-08-10-fluent-bit-docker-logging-driver-elasticsearch/
+
