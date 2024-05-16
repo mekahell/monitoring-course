@@ -70,3 +70,11 @@ Ce script utilise le SDK OpenTelemetry
 ![Screenshot discover](./visualize.png)
 - Sélectionner votre index dans la section en haut à gauche:
 ![Screenshot index](./select-index.png)
+
+## Supervision de FluentBit avec Prometheus
+
+- Ajouter une scrape config à Prometheurs dans le fichier ./hexatek/02-prometheus-mimir/config/prometheus.yaml pour récupérer les métriques de FluentBit.
+
+- Les métriques disponibles sont documentées ici: https://docs.fluentbit.io/manual/administration/monitoring
+
+- A partir de ces métriques, créer un dashboard dans Grafana.
