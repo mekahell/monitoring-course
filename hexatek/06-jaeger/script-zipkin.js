@@ -90,7 +90,7 @@ function sendEmailWithCredentials(parent, idx) {
     parent
   );
 
-  const sendEmailWithCredentialsSpan = tracer.startActiveSpan(
+  const sendEmailWithCredentialsSpan = tracer.startSpan(
     "sendEmailWithCredentials",
     { kind: opentelemetry.api.SpanKind.CLIENT },
     ctx
