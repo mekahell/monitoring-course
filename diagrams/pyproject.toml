@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "monitoring-course-diagram"
+version = "1.0.0"
+description = "Diagrams for the slides and documentation of monitoring course"
+authors = ["Mickaël GREGORI <mickael.gregori@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+diagrams = "^0.23.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
