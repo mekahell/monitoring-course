@@ -50,7 +50,7 @@ with Diagram("Monitoring of a simple Javascript application", filename="otel_dia
             otel_collector = Custom("OpenTelemetry\nCollector", "./resources/OpenTelemetry.png")
             pokedex_webserver = Nginx("NGinx webserver")
             otel_collector >> Edge(style="dashed") >> fluentbit_processor
-            otel_collector >> Edge(style="dashed") >> prom
+            otel_collector << Edge(style="dashed") << prom
             otel_collector >> Edge(style="dashed") >> jaeger
             pokedex_containers = [pokedex_webserver, otel_collector]
         
