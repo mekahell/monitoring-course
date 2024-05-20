@@ -5,6 +5,11 @@ receivers:
         endpoint: 0.0.0.0:4317
       http:
         endpoint: 0.0.0.0:4318
+        include_metadata: true
+        cors:
+          allowed_origins:
+            - "*"
+          max_age: 7200
 
 processors:
   batch:
@@ -13,14 +18,18 @@ exporters:
   # Traces to jaeger
   otlp/jaeger:
     endpoint: jaeger:4317
+    tls:
+      insecure: true
 
   # Logs to fluentbit
   otlp:
     endpoint: fluentbit-otel:4318
+    tls:
+      insecure: true    
 
   # Metrics to prometheus
   prometheus:
-    endpoint: "localhost:8889"
+    endpoint: 0.0.0.0:8889
     namespace: hexatek
   
   debug:
