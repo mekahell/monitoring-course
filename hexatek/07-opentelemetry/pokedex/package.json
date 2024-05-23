@@ -3,13 +3,21 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build-js": "browserify ./src/app.js -o ./public/bundle.js",
-    "watch-js": "watchify ./src/app.js -o ./public/bundle.js"
+    "build-js": "browserify ./src/otel.js ./src/app.js -o ./public/bundle.js",
+    "watch-js": "watchify ./src/otel.js ./src/app.js -o ./public/bundle.js"
   },
   "author": "Mickaël GREGORI",
   "license": "ISC",
   "description": "Pokedex de la société Hexatek",
   "dependencies": {
+    "@opentelemetry/api": "^1.8.0",
+    "@opentelemetry/context-zone": "^1.24.1",
+    "@opentelemetry/exporter-metrics-otlp-proto": "^0.51.1",
+    "@opentelemetry/exporter-trace-otlp-proto": "^0.51.1",
+    "@opentelemetry/instrumentation-document-load": "^0.38.0",
+    "@opentelemetry/instrumentation-fetch": "^0.51.1",
+    "@opentelemetry/instrumentation-xml-http-request": "^0.51.1",
+    "@opentelemetry/sdk-trace-web": "^1.24.1",
     "browserify": "^17.0.0",
     "pokeapi-js-wrapper": "^1.2.4",
     "watchify": "^4.0.0"
